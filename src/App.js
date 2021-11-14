@@ -1,24 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from 'react';
+import { getFrameData } from './api';
+import DisplayFrameData from './DisplayFrameData';
+
 
 function App() {
+  const [frameData, setFrameData] = useState([])
+  console.log(Object.values(frameData))
+  
+
+  useEffect(() => {
+    getFrameData()
+    .then((res) => {
+      setFrameData(res)
+      return null
+    })
+    .catch(err => {
+      console.log(err.message)
+    })
+  },[])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <DisplayFrameData frameData={frameData}/>
+    </>
   );
 }
 
