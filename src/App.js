@@ -6,23 +6,10 @@ import DisplayFrameData from './DisplayFrameData';
 
 
 function App() {
-  const [frameData, setFrameData] = useState([])
-  console.log(Object.values(frameData))
-  
 
-  useEffect(() => {
-    getFrameData()
-    .then((res) => {
-      setFrameData(res)
-      return null
-    })
-    .catch(err => {
-      console.log(err.message)
-    })
-  },[])
   return (
     <>
-    <DisplayFrameData frameData={frameData}/>
+    <DisplayFrameData />
     </>
   );
 }
