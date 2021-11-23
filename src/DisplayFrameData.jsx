@@ -3,27 +3,26 @@ import { getFrameData } from './api';
 
 
 const DisplayFrameData = () => {
-    const [frameData, setFrameData] = useState([])
-    const [characterMoves, setCharacterMoves] = useState([])
-    const [characterNames, setCharacterNames] = useState([])
-
-    //console.log(Object.values(frameData))
+   
+    const [characters, setCharacters] = useState({"Bob":{"character":"Bob","moves":[{"Command":"Command","Level":"Hit level","Damage":"Damage","Startup":"Start up frame","Block":"Block frame","Hit":"Hit frame","CH":"Counter hit frame","Notes":"Notes"}]}})
+    const [characterNames, setCharacterNames] = useState(["Bob"])
   
     useEffect(() => {
       getFrameData()
       .then((res) => {
-          console.log(res)
-        setFrameData(res)
+        //   console.log(res)
+        // setFrameData(res)
+        setCharacters(res)
         setCharacterNames(Object.keys(res)) 
-        setCharacterMoves(Object.values(res))
-        console.log(characterMoves)
+        // setCharacterMoves(Object.values(res))
+        // console.log(characters)
         //console.log([...characterMoves])
         return null
       })
-    //   .catch(err => {
-    //     console.log(err.message)
-    //   })
-    },[])
+      .catch(err => {
+        console.log(err.message)
+      })
+    }, [])
 
 
    
@@ -37,11 +36,16 @@ const DisplayFrameData = () => {
             {/* <div>{characterMoves.map(({Command}) => {
                 <li>Command: {Command}</li> */}
                 
+                
        
             
             <div>
                 {characterNames.map((name)=>{
-                    return <li>{name}</li>
+                    console.log(characters)
+                    //console.log(characters[name].character)
+                    // return <li key={name}>{name}{characters[name].moves[0].Level}</li>
+                    return <li key={name}>{name}</li>
+                
                 })}
             </div>
         
@@ -52,5 +56,5 @@ const DisplayFrameData = () => {
         </>
     )
 }
-
+//[name].moves[0].Level
 export default DisplayFrameData
